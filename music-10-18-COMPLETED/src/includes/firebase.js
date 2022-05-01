@@ -1,0 +1,37 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
+
+ // Your web app's Firebase configuration
+
+ const firebaseConfig = {
+
+    apiKey: "AIzaSyCWdM35pKU_6svv4V13gk60Hc6LC8fLYOw",
+
+    authDomain: "music-16ade.firebaseapp.com",
+
+    projectId: "music-16ade",
+
+    storageBucket: "music-16ade.appspot.com",
+
+    messagingSenderId: "639404663467",
+
+    appId: "1:639404663467:web:77479c038a42c50c20cdee"
+
+  };
+
+  // Initialize Firebase
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const usersCollection = db.collection('users');
+
+  export{
+      auth,
+      db,
+      usersCollection,
+  };
