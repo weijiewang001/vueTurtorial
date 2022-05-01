@@ -23,6 +23,8 @@ export default {
     defineRule('passwords_mismatch', confirmed);
     defineRule('excluded', excluded);
     defineRule('country_excluded', excluded);
+    defineRule('gender_excluded',excluded);
+
 
     configure({
       generateMessage: (ctx) => {
@@ -38,6 +40,7 @@ export default {
           country_excluded: 'Due to restrictions, we do not accept users from this location.',
           passwords_mismatch: "The passwords don't match.",
           tos: 'You must accept the Terms of Service.',
+          gender_excluded: 'Due to the case sensitivity, we need to classify your gender.'
         };
 
         const message = messages[ctx.rule.name]

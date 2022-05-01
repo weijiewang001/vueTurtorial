@@ -31,6 +31,18 @@
           duration-500 focus:outline-none focus:border-black rounded" />
       <ErrorMessage class="text-red-600" name="age" />
     </div>
+    <!-- gender -->
+    <div>
+      <label class="inline-block mb-2">Gender</label>
+      <vee-field as="select" name="gender" class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+          duration-500 focus:outline-none focus:border-black rounded">
+          <option value="-">-</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Secret">Secret</option>
+      </vee-field>
+      <Error-Message class="text-red-600" name='gender'/>
+    </div>
     <!-- Password -->
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
@@ -82,7 +94,7 @@
 </template>
 
 <script>
-import firebase from '@/includes/firebase';
+import { auth, db , usersCollection } from '@/includes/firebase';
 
 export default {
   name: 'RegisterForm',
@@ -96,9 +108,11 @@ export default {
         confirm_password: 'passwords_mismatch:@password',
         country: 'required|country_excluded:Antarctica',
         tos: 'tos',
+        gender: 'required|gender_excluded:-,Secret',
       },
       userData: {
         country: 'USA',
+        gender: '-'
       },
       reg_in_submission: false,
       reg_show_alert: false,
@@ -116,7 +130,7 @@ export default {
       let userCred = null;
       //发起请求
       try{
-        userCred = await firebase.auth().createUserWithEmailAndPassword(
+        userCred = await auth.createUserWithEmailAndPassword(
           values.email, values.password,
         );
       } catch (error) {
@@ -125,6 +139,21 @@ export default {
         this.reg_alert_msg = "An unexpected error occured. Please try again later.";
         return;
       }
+
+      // try{
+      //   await usersCollection.add({
+      //     name:values.name,
+      //     email:values.email,
+      //     age:values.age,
+      //     gender:values.gender,
+      //     country:values.country,
+      //   });
+      // }catch(error){
+      //   this.reg_in_submission = false;
+      //   this.reg_alert_variant = 'bg-red-500';
+      //   this.reg_alert_msg = 'An unexpected error occured. Please try again later.';
+      //   return;
+      // }
       
 
       this.reg_alert_variant = 'bg-green-500';
