@@ -11,7 +11,7 @@ import './includes/firebase';
 let app;
 
 //callback function
-//check if the user is authenticated when the application starts/initialized.
+//check if the user is authenticated when the application starts/initialise.
 auth.onAuthStateChanaged(()=> {
     //check if the app has been initialized
     if (!app){
