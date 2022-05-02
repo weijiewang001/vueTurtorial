@@ -38,7 +38,7 @@ export default createStore({
         name:payload.name,
         email:payload.email,
         age:payload.age,
-        // gender:payload.gender,
+        gender:payload.gender,
         country:payload.country,
       });
 

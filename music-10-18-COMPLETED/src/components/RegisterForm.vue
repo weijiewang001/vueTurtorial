@@ -126,17 +126,17 @@ export default {
       this.reg_in_submission = true;
       this.reg_alert_variant = 'bg-blue-500';
       this.reg_alert_msg = 'Please wait! Your account is being created.';
-    try{
-      //call dispatch function using the store object.
-      //This function will run a function inside the actions object of the store.
-      //dispatch 有两个参数，一个是call action中的功能名字，一个是从event事件中传入的数据
-      await this.$store.dispatch('register', values);
-    } catch(error){
-      this.reg_in_submission = false;
-      this.reg_alert_variant = 'bg-red-500';
-      this.reg_alert_msg = 'An unexpected error occured. Please try again later.';
-      return;
-    }
+      try{
+        //call dispatch function using the store object.
+        //This function will run a function inside the actions object of the store.
+        //dispatch 有两个参数，一个是call action中的功能名字，一个是从event事件中传入的数据
+        await this.$store.dispatch('register', values);
+      } catch(error){
+        this.reg_in_submission = false;
+        this.reg_alert_variant = 'bg-red-500';
+        this.reg_alert_msg = 'An unexpected error occured. Please try again later.';
+        return;
+      }`
     
     
 
