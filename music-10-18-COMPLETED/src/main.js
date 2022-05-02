@@ -3,10 +3,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VeeValidatePlugin from './includes/validation';
-import { auth } from './assets/tailwind.css';
+import './assets/tailwind.css';
 import './assets/main.css';
-import './includes/firebase';
-
+import { auth } from './includes/firebase';
 
 let app;
 
