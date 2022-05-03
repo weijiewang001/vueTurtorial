@@ -11,7 +11,7 @@ let app;
 
 //callback function
 //check if the user is authenticated when the application starts/initialise.
-auth.onAuthStateChanaged(()=> {
+auth.onAuthStateChanged(()=> {
     //check if the app has been initialized
     if (!app){
         app = createApp(App);

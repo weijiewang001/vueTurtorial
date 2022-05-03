@@ -52,6 +52,18 @@ export default createStore({
       //commit a mutation
       commit("toggleAuth");
 
+    },
+
+    //用户登录
+    //保留用户登录的唯一uio，使其保持登录状态（刷新页面也有效）
+    init_login({ commit }){
+      const user = auth.currentUser;
+
+      if(user){
+        commit('toggleAuth')
+      }
+
     }
+
   },
 });

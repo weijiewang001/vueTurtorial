@@ -136,7 +136,7 @@ export default {
         this.reg_alert_variant = 'bg-red-500';
         this.reg_alert_msg = 'An unexpected error occured. Please try again later.';
         return;
-      }`
+      }
     
     
 
