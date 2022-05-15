@@ -54,13 +54,19 @@ export default createStore({
 
     },
 
+    // async login({commit}, payload){
+      
+
+    // },
+
     //用户登录
     //保留用户登录的唯一uio，使其保持登录状态（刷新页面也有效）
+    // 在action功能中，解构commit功能。
     init_login({ commit }){
-      const user = auth.currentUser;
+      const user = auth.currentUser; 
 
       if(user){
-        commit('toggleAuth')
+        commit('toggleAuth');
       }
 
     }
