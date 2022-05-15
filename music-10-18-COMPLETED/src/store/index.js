@@ -13,7 +13,7 @@ export default createStore({
     },
     toggleAuth(state){
       state.userLoggedIn = !state.userLoggedIn;
-    }
+    },
   },
   getters: {
     // authModalShow: (state) => state.authModalShow,
@@ -73,7 +73,14 @@ export default createStore({
         commit('toggleAuth');
       }
 
-    }
+    },
+
+    async signout({commit}){
+      await auth.signOut();
+
+      commit('toggleAuth');
+
+    },
 
   },
 });
