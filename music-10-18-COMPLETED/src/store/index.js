@@ -54,10 +54,14 @@ export default createStore({
 
     },
 
-    // async login({commit}, payload){
-      
+    //payload是表单的内容
+    // 如果payload跟数据库里面的数据符合，那么就会返回true=>成功
+    async login({commit}, payload){
+      await auth.signInWithEmailAndPassword(payload.email, payload.password);
 
-    // },
+      commit('toggleAuth');
+
+    },
 
     //用户登录
     //保留用户登录的唯一uio，使其保持登录状态（刷新页面也有效）
