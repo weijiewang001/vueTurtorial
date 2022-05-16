@@ -14,7 +14,6 @@
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
               Login / Register
             </a>
-            <!-- <div>1111111{{userLoggedIn}}</div> -->
           </li>
           <template v-else>
             <li>

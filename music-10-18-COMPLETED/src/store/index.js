@@ -11,6 +11,8 @@ export default createStore({
     toggleAuthModal: (state) => {
       state.authModalShow = !state.authModalShow;
     },
+
+    // 存储判断用户是否登录的变量
     toggleAuth(state){
       state.userLoggedIn = !state.userLoggedIn;
     },
