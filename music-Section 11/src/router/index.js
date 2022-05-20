@@ -5,16 +5,32 @@ import Manage from '@/views/Manage.vue';
 
 const routes = [
   {
+    name: 'home',
     path: '/', // example.com/
     component: Home,
   },
   {
+    name:'about',
     path: '/about',
     component: About,
   },
   {
-    path: '/manage',
+    name:'manage',
+    // alias: '/manage',
+    path: '/manage-music',
     component: Manage,
+    beforeEnter:(to,from,next) => {
+      console.log('Manage Route Guard');
+      next();
+    }
+  },
+  {
+    path: '/manage',
+    redirect: { name:'manage'},
+  },
+  {
+    path: '/:catchAll(.*)*',
+    redirect: {name:'home'},
   }
   
 ];
@@ -22,6 +38,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkExactActiveClass: 'text-yellow-500',
 });
+
+
+router.beforeEach((to, from, next) => {
+  console.log("Global Guard");
+  // console.log(to, from);
+
+  next();
+})
 
 export default router;

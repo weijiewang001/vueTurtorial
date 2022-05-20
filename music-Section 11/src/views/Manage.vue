@@ -129,3 +129,32 @@
     </div>
   </section>
 </template>
+
+
+<script>
+import store from '@/store';
+
+export default {
+  name: 'manage',
+  beforeRouteEnter(to, from, next){
+    // console.log('beforeRouteEnter Guard');
+    // $store 是一个global对象，由vuex创造，这个让我们能够访问state
+
+    // 检测state中存储的值是true还是false（是否是登录状态）
+    // 是的话，加载这个组件
+    if(store.state.userLoggedIn){
+      next();
+    }
+    else{
+      //如果不是登录状态
+      //那么跳转到name是home的组件
+      next({ name: 'home' });
+    }
+    //还有一种是直接返回一个空值，那么用户就会看到一个空的页面。
+    //在这种情况，其实重定向比空白页面更好。
+
+
+  }
+}
+</script>
+

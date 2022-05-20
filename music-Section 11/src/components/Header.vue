@@ -4,7 +4,7 @@
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
       <!-- App Name -->
       <router-link class="text-white font-bold uppercase text-2xl mr-4" 
-        to="/">
+        :to="{ name: 'home' }" exact-active-class="no-active">
         Music
       </router-link>
 
@@ -13,7 +13,7 @@
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
           <li>
-            <router-link class="px-2 text-white" to="/about">About</router-link>
+            <router-link class="px-2 text-white" :to="{ name:'about' }">About</router-link>
           </li>
 
           <!-- 检查如果store里面是登录状态了，隐藏按钮 -->
@@ -24,7 +24,7 @@
           </li>
           <template v-else>
             <li>
-              <router-link class="px-2 text-white" to="/manage">Manage</router-link>
+              <router-link class="px-2 text-white" :to="{ name:'manage' }">Manage</router-link>
             </li>
             <li>
               <a class="px-2 text-white" @click.prevent="signout" href="#">Logout</a>
