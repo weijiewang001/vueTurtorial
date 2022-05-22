@@ -77,10 +77,15 @@ export default createStore({
 
     },
 
-    async signout({commit}){
+    async signout({commit},payload){
       await auth.signOut();
 
       commit('toggleAuth');
+      
+      // 通过payload从组件将router和route的值传进来
+      if(payload.route.meta.requiresAuth){
+        payload.router.push({name:'home'});
+      }
 
     },
 

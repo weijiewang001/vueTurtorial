@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
+// import route from '@/route'
 
 export default {
   name: 'Header',
@@ -47,6 +48,26 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
+    signout(){
+      //调用store action中的signout功能
+      this.$store.dispatch('signout',
+      {
+        router:this.$router,
+        route:this.$route,
+      });
+
+      // console.log(this.$route); 打印所在路由的信息
+      //如果路由的名字是manage
+      // 当点击登出后
+      // 检查点击按钮后，该路由是否有配置路由验证设置。
+      // 如果有，执行
+      // 跳转路由至名称为home的组件。
+
+      // 还有另一种在action里面的写法，需要把值传进dispatch功能
+      // if(this.$route.meta.requiresAuth){
+      //   this.$router.push({name:'home'});
+      // }
+    }
 
 
     //1. 定义一个signout功能来使用store中action的signout功能
@@ -56,7 +77,7 @@ export default {
     
     // 2.使用mapactions
     // mapactions跟别的功能用起来一样，更方便。
-    ...mapActions(['signout']), //这个语句的功能和dispatch的功能一样，因此拥有这个可以注销掉dispatch
+    // ...mapActions(['signout']), //这个语句的功能和dispatch的功能一样，因此拥有这个可以注销掉dispatch
     
     // toggleAuthModal() {
     //   this.$store.commit('toggleAuthModal');
