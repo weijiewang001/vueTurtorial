@@ -114,7 +114,13 @@ export default {
                     this.uploads[uploadIndex].text_class = 'text-green-400';
                 });
             })
-        },
+        }
+    },
+    beforeUnmount(){
+        // upload只能一个个cancel，所以需要forEach来循环
+        this.uploads.forEach((upload) => {
+            upload.task.cancel();
+        })
     }
 }
 </script>
