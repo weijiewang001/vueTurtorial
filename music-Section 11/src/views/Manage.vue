@@ -102,16 +102,36 @@
 <script>
 // import store from '@/store';
 import AppUpload from "@/components/Upload.vue";
+import { songsCollection, auth } from '@/includes/firebase';
 
 export default {
   name: 'manage',
   components:{
     AppUpload,
   },
+  data(){
+    return{
+      songs: [],
+    }
+  },
   beforeRouteLeave(to, from, next){
     this.$refs.upload.cancelUploads();
     next();
-  }
+  },
+  async created(){
+    // 创造一个异步created访问数据库
+    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid)
+      .get();
+    //get function 会返回一个snapshot
+    snapshot.forEach((document) => {
+      // 写一个docID的key进入这个object
+      const song = {
+        ...document.data(),
+        docID: document.id,
+      };
+      this.songs.push(song);
+    })
+  },
   // beforeRouteEnter(to, from, next){
   //   // console.log('beforeRouteEnter Guard');
   //   // $store 是一个global对象，由vuex创造，这个让我们能够访问state
