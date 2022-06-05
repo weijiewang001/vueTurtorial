@@ -18,6 +18,8 @@
       </div>
       <vee-form :validation-schema="schema" :initial-values="song"
         @submit="edit">
+        <!-- initial-value用来放置一开始的信息 -->
+        <!-- submit用来提交表单 -->
         <div class="mb-3">
           <label class="inline-block mb-2">Song Title</label>
           <vee-field type="text" name="modified_name"
@@ -26,6 +28,7 @@
             placeholder="Enter Song Title"
             @input="updateUnsavedFlag(true)" />
           <ErrorMessage class="text-red-600" name="modified_name" />
+          <!-- error message tag, when vee-field works, the error message tag will come out. -->
         </div>
         <div class="mb-3">
           <label class="inline-block mb-2">Genre</label>
@@ -90,6 +93,7 @@ export default {
   },
   methods: {
     async edit(values) {
+      // console.log('111111');
       this.in_submission = true;
       this.show_alert = true;
       this.alert_variant = 'bg-blue-500';
