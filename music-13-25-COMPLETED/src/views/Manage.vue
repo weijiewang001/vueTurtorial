@@ -18,6 +18,8 @@
               :index="i"
               :removeSong="removeSong"
               :updateUnsavedFlag="updateUnsavedFlag" />
+              <!-- 将updateSong prop绑定updateSong功能 -->
+              <!-- 将index prop绑定v-for中的index -->
           </div>
         </div>
       </div>
@@ -62,7 +64,6 @@ export default {
         ...document.data(),
         docID: document.id,
       };
-
       this.songs.push(song);
     },
     updateUnsavedFlag(value) {
@@ -71,10 +72,13 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     if (!this.unsavedFlag) {
+      // 离开到下一页去
       next();
     } else {
+      // 离开到确定警告功能
       // eslint-disable-next-line no-alert, no-restricted-globals
       const leave = confirm('You have unsaved changes. Are you sure you want to leave?');
+      // confirm 功能相当于一个alert功能。
       next(leave);
     }
   },

@@ -101,6 +101,7 @@ export default {
 
       try {
         await songsCollection.doc(this.song.docID).update(values);
+        // doc 功能会根据docID来选择文件
       } catch (error) {
         this.in_submission = false;
         this.alert_variant = 'bg-red-500';
@@ -110,18 +111,23 @@ export default {
 
       this.updateSong(this.index, values);
       this.updateUnsavedFlag(false);
+      // 如果用户提交数据后，重新设定flag为false，这里不用保护用户误点 
 
       this.in_submission = false;
       this.alert_variant = 'bg-green-500';
       this.alert_message = 'Success!';
     },
     async deleteSong() {
+      // 因为要对firebase中的数据做出改变，所以这里使用异步async
       const storageRef = storage.ref();
       const songRef = storageRef.child(`songs/${this.song.original_name}`);
+      // 创建一个songRef来储存storageRef的孩子。
+      // 使用original_name而不是modified_name，因为用户能随意改modified name。
 
       await songRef.delete();
 
       await songsCollection.doc(this.song.docID).delete();
+      // 我们能通过call delete 功能来删除文件，他会返回一个promise 因此需要await
 
       this.removeSong(this.index);
     },

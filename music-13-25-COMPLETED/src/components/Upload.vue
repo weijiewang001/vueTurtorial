@@ -97,7 +97,9 @@ export default {
 
           song.url = await task.snapshot.ref.getDownloadURL();
           const songRef = await songsCollection.add(song);
+          // 如果这里这么赋值，会得到一个reference而不是snapshot
           const songSnapshot = await songRef.get();
+          // 通过get能得到snapshot
 
           this.addSong(songSnapshot);
 
