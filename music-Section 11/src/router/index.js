@@ -49,7 +49,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // to.matched代表将要导向的组件
   // matched是一个array包含了记录，与用户将要访问的路径相符。
-  console.log(!to.matched.some(record => record.meta.requiresAuth));
+  // console.log(!to.matched.some(record => record.meta.requiresAuth));
   // some function 是一个js的数组功能
   // loop an array and perform a test on each item.
   // if any test pass, it will return true.

@@ -12,7 +12,7 @@
             <i class="fa fa-compact-disc float-right text-green-400 text-2xl"></i>
           </div>
           <div class="p-6">
-            <composition-item v-for="song in songs" :key="song.docID"/>
+            <composition-item v-for="song in songs" :key="song.docID" :song="song"/>
           </div>
         </div>
       </div>
@@ -72,8 +72,6 @@ export default {
   //   }
   //   //还有一种是直接返回一个空值，那么用户就会看到一个空的页面。
   //   //在这种情况，其实重定向比空白页面更好。
-
-
   // }
 }
 </script>

@@ -47,10 +47,10 @@ export default {
     methods: {
         upload($event){
             this.is_dragover = false;
-            console.log("$event", $event)
+            // console.log("$event", $event)
             // const files = [...$event.dataTransfer.files];
             const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files];
-            console.log(files);
+            // console.log(files);
 
             files.forEach((file) => {
                 if(file.type != 'audio/mpeg'){
@@ -103,7 +103,11 @@ export default {
                     };
                     
                     song.url = await task.snapshot.ref.getDownloadURL();
-                    await songsCollection.add(song);
+                    const songRef = await songsCollection.add(song);
+                    const songSnapshot = await songRef.get();
+
+                    this.addSong(songSnapshot);
+
                     // set 和 add不同在于
                     // set允许分配自定义的id给文件
                     // add会让firebase 生成一个id给你
