@@ -111,8 +111,7 @@ export default {
 
       this.updateSong(this.index, values);
       this.updateUnsavedFlag(false);
-      // 如果用户提交数据后，重新设定flag为false，这里不用保护用户误点 
-
+      // 如果用户提交数据后，重新设定flag为false，这里不用保护用户误点
       this.in_submission = false;
       this.alert_variant = 'bg-green-500';
       this.alert_message = 'Success!';
@@ -128,7 +127,6 @@ export default {
 
       await songsCollection.doc(this.song.docID).delete();
       // 我们能通过call delete 功能来删除文件，他会返回一个promise 因此需要await
-
       this.removeSong(this.index);
     },
   },
