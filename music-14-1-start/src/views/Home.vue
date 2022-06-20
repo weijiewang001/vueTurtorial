@@ -54,16 +54,39 @@ export default {
     }
   },
   async created() {
-    const snapshots = await songsCollection.get();
+    this.getSongs();
 
-    snapshots.forEach((document) => {
-      this.songs.push({
-        docID: document.id,
-        ...document.data(),
+    window.addEventListener('scroll', this.handleScroll);
+    
 
-      });
-    })
+  },
+  beforeUnmount(){
+    // 移除事件，防止eventlistener导致的内容泄漏。
+      window.removeEventListener('scroll',this.handleScroll);
+  },
+  methods: {
+    handleScroll(){
+      // 解构需要的相关数据
+      const { scrollTop, offsetHeight } = document.documentElement;
+      const { innerHeight } = window;
+      const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight;
 
+      if (bottomOfWindow) {
+        console.log('到达页面底部了')
+      }
+    },
+    
+    async getSongs(){
+      const snapshots = await songsCollection.get();
+
+      snapshots.forEach((document) => {
+        this.songs.push({
+          docID: document.id,
+          ...document.data(),
+
+        });
+      })
+    }
   }
 }
 </script>
