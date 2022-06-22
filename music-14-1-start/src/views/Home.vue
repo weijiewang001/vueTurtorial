@@ -51,14 +51,13 @@ export default {
   data(){
     return{
       songs: [],
+      maxPerPage:3,
+      pendingRequest: false,
     }
   },
   async created() {
     this.getSongs();
-
     window.addEventListener('scroll', this.handleScroll);
-    
-
   },
   beforeUnmount(){
     // 移除事件，防止eventlistener导致的内容泄漏。
@@ -72,20 +71,43 @@ export default {
       const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight;
 
       if (bottomOfWindow) {
+        this.getSongs();
         console.log('到达页面底部了')
       }
     },
-    
     async getSongs(){
-      const snapshots = await songsCollection.get();
+      //判断是否在拿请求的过程中。如果是，直接返回
+      if(this.pendingRequest){
+        return;
+      }
+      this.pendingRequest = true;
 
+      let snapshots;
+      //如果this.songs有内容，那么里面的东西不会报错
+      if(this.songs.length){
+        const lastDoc = await songsCollection
+        .doc(this.songs[this.songs.length - 1].docID)
+        .get();
+        snapshots = await songsCollection
+        .startAfter(lastDoc)
+        .limit(this.maxPerPage)
+        .get();
+      }
+      //否则startAfter会报错
+      else{
+        snapshots = await songsCollection
+        .limit(this.maxPerPage)
+        .get();
+      }
+      //循环一遍snapshots，并添加docID
       snapshots.forEach((document) => {
         this.songs.push({
           docID: document.id,
           ...document.data(),
-
         });
-      })
+      });
+      //判断拿请求状态是false；
+      this.pendingRequest = false;
     }
   }
 }
