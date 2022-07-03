@@ -39,7 +39,7 @@
         </vee-form>
 
 
-        <select
+        <select v-model="sort"
           class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition
           duration-500 focus:outline-none focus:border-black rounded">
           <option value="1">Latest</option>
@@ -51,7 +51,7 @@
 
   <!-- comments -->
   <ul class="container mx-auto">
-    <li class="p-6 bg-gray-50 border border-gray-200" v-for="comment in comments" :key="comment.docID">
+    <li class="p-6 bg-gray-50 border border-gray-200" v-for="comment in sortedComments" :key="comment.docID">
       <!-- Comment Author -->
       <div class="mb-5">
         <div class="font-bold">{{ comment.name }}</div>
@@ -80,10 +80,25 @@ export default {
             comment_alert_variant: 'bg-blue-500',
             comment_alert_message: 'Please wait! Your comment is being submitted',
             comments:[],
+            sort: '1',
         }
     },
     computed: {
         ...mapState(['userLoggedIn']),
+        sortedComments(){
+            // 在computed里面的功能不能直接改变data里面的值
+            // 如果直接用sort会报错，因为他直接改变了原数组，
+            // 因此在这里加上slice，加上后slice每次切割会产生新的数组，避免了报错。
+            return this.comments.slice().sort((a, b) => {
+                if(this.sort === '1'){
+                    return new Date(b.datePosted) - new Date(a.datePosted);
+                }
+
+                return new Date(a.datePosted) - new Date(b.datePosted);
+            });
+
+        }
+
     },
     methods: {
         // destructure resetForm function,resetForm功能可以重置表单
@@ -104,13 +119,15 @@ export default {
 
             await commentsCollection.add(comment);
 
+            this.getComments();
+
             this.comment_in_submission = false;
             this.comment_alert_variant = 'bg-green-500';
             this.comment_alert_message = 'Comment added!';
             resetForm();
         },
         async getComments(){
-            const snpashots = await commentsCollection.where(
+            const snapshots = await commentsCollection.where(
                 'sid', '==', this.$route.params.id,
             ).get();
 
