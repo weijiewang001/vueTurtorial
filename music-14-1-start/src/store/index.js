@@ -1,11 +1,13 @@
 import { createStore } from 'vuex';
 import { auth, usersCollection } from '@/includes/firebase';
+import { Howl } from 'howler';
 
 export default createStore({
   state: {
     authModalShow: false,
     userLoggedIn: false,
     currentSong: {},
+    sounds: {},
   },
   mutations: {
     toggleAuthModal: (state) => {
@@ -18,6 +20,14 @@ export default createStore({
     // 被存进state中的currentSong当中
     newSong(state, payload){
       state.currentSong = payload;
+      // 在new Howl中
+      // 歌曲的url被识别，同时需要标注html5的文件属性，否则会读取失败
+      // 定义播放设备不能在mutation中，只能在action中
+      // mutation只能用来改变state中的数据。
+      state.sound = new Howl({
+        src: [payload.url],
+        html5: true,
+      });
     }
   },
   getters: {
@@ -64,8 +74,11 @@ export default createStore({
       // }
     },
 
-    async newSong({ commit }, payload){
+    async newSong({ commit, state }, payload){
       commit('newSong', payload);
+      
+      // 这里的state 需要destructure才能访问。
+      state.sound.play();
 
     },
   },
