@@ -5,6 +5,7 @@ export default createStore({
   state: {
     authModalShow: false,
     userLoggedIn: false,
+    currentSong: {},
   },
   mutations: {
     toggleAuthModal: (state) => {
@@ -13,6 +14,11 @@ export default createStore({
     toggleAuth(state) {
       state.userLoggedIn = !state.userLoggedIn;
     },
+    // 数据库的音乐数据会是payload
+    // 被存进state中的currentSong当中
+    newSong(state, payload){
+      state.currentSong = payload;
+    }
   },
   getters: {
     // authModalShow: (state) => state.authModalShow,
@@ -56,6 +62,11 @@ export default createStore({
       // if (payload.route.meta.requiresAuth) {
       //   payload.router.push({ name: 'home' });
       // }
+    },
+
+    async newSong({ commit }, payload){
+      commit('newSong', payload);
+
     },
   },
 });
