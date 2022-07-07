@@ -7,7 +7,7 @@ export default createStore({
     authModalShow: false,
     userLoggedIn: false,
     currentSong: {},
-    sounds: {},
+    sound: {},
   },
   mutations: {
     toggleAuthModal: (state) => {
@@ -32,6 +32,13 @@ export default createStore({
   },
   getters: {
     // authModalShow: (state) => state.authModalShow,
+    playingP: (state) => {
+      if (state.sound.playing){
+        return state.sound.playing();
+      }
+
+      return false;
+    }
   },
   actions: {
     async register({ commit }, payload) {
@@ -81,5 +88,18 @@ export default createStore({
       state.sound.play();
 
     },
+
+    async toggleAudio( { state } ){
+      if(!state.sound.playing){
+        return;
+      }
+
+      if(state.sound.playing()){
+        state.sound.pause();
+      }else{
+        state.sound.play();
+      }
+
+    }
   },
 });
