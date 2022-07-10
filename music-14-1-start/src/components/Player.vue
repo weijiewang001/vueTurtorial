@@ -11,7 +11,7 @@
       </div>
       <!-- Current Position -->
       <div class="float-left w-7 h-7 leading-3 text-gray-400 mt-0 text-lg w-14 ml-5 mt-1">
-        <span class="player-currenttime">00:00</span>
+        <span class="player-currenttime">{{ seek }}</span>
       </div>
       <!-- Scrub -->
       <div class="float-left w-7 h-7 leading-3 ml-7 mt-2 player-scrub">
@@ -29,21 +29,24 @@
       </div>
       <!-- Duration -->
       <div class="float-left w-7 h-7 leading-3 text-gray-400 mt-0 text-lg w-14 ml-8 mt-1">
-        <span class="player-duration">03:06</span>
+        <span class="player-duration">{{ duration }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 export default {
     name: 'Player',
     computed: {
+        // 控制播放暂停按钮的状态
+        // 返回true 或者 false
         ...mapGetters(['playingP']),
     },
     methods:{
         ...mapActions(['toggleAudio']),
+        ...mapState(['seek', 'duration'])
     }
 }
 </script>
