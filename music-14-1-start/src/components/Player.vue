@@ -43,10 +43,10 @@ export default {
         // 控制播放暂停按钮的状态
         // 返回true 或者 false
         ...mapGetters(['playingP']),
+        ...mapState(['seek', 'duration']),
     },
     methods:{
         ...mapActions(['toggleAudio']),
-        ...mapState(['seek', 'duration'])
     }
 }
 </script>
