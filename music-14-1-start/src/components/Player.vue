@@ -14,7 +14,8 @@
         <span class="player-currenttime">{{ seek }}</span>
       </div>
       <!-- Scrub -->
-      <div class="float-left w-7 h-7 leading-3 ml-7 mt-2 player-scrub">
+      <div class="float-left w-7 h-7 leading-3 ml-7 mt-2 player-scrub"
+      @click.stop="updateSeek">
         <div class="absolute left-0 right-0 text-lg text-center mx-auto player-song-info"
         v-if="currentSong.modified_name">
           <span class="song-title">{{currentSong.modified_name}}</span> by
@@ -47,7 +48,7 @@ export default {
         ...mapState(['seek', 'duration', 'playerProgress', 'currentSong']),
     },
     methods:{
-        ...mapActions(['toggleAudio']),
+        ...mapActions(['toggleAudio', 'updateSeek']),
     }
 }
 </script>
