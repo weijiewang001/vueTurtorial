@@ -123,6 +123,19 @@ export default createStore({
       }
 
     },
+
+    async toggleAudioSong( { commit,state },payload){
+      commit('newSong', payload);
+      if(!state.sound.playing){
+        return;
+      }
+      if(state.sound.playing() ){
+        state.sound.pause();
+      }else{
+        state.sound.play();
+      }
+    },
+ 
     progress({ commit, state, dispatch}) {
       commit('updatePosition');
 
