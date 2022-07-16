@@ -1,3 +1,4 @@
+//变量传值
 export default{
   beforeMount(el, binding){
     // binding.value是绑定v-icon后面的icon type
