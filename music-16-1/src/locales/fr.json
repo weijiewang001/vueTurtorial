@@ -8,5 +8,8 @@
   },
   "song": {
     "comment_count": ""
+  },
+  "manage": {
+    "my_songs": "Mes chansons"
   }
 }
